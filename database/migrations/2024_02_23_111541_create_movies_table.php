@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('url');
             $table->enum('publish_status', ['published', 'underConsideration'])->default('underConsideration');
+            $table->timestamps();
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('films');
+        Schema::dropIfExists('movies');
     }
 };

@@ -28,15 +28,6 @@ class Movie extends Model
     public static $enum = ['published', 'underConsideration'];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'url' => 'url'
-    ];
-
-    /**
      * Get the genres associated with the movie.
      */
     public function genres()

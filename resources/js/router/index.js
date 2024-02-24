@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainePage from "../Pages/MainePage.vue";
 import CreateMoviePage from '../Pages/Movie/CreateMoviePage.vue';
+import CreteGenrePage from '../Pages/Genre/CreteGenrePage.vue';
+
 
 const routes = [
     {
@@ -10,6 +12,10 @@ const routes = [
     {
         path: '/createMovie',
         component: CreateMoviePage
+    },
+    {
+        path: '/createGenre',
+        component: CreteGenrePage
     }
 
 ];

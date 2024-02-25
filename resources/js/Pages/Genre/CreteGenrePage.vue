@@ -27,7 +27,7 @@
 import axios from "axios";
 
 export default {
-    data() {
+    data() {    
         return {
             genreName: "",
         };
@@ -43,7 +43,7 @@ export default {
                     formData       
                 );
 
-                console.log(response.data);
+                this.$router.push('/');
             } catch (error) {
                 console.error(error);
             }

@@ -60,7 +60,7 @@ class MovieController extends Controller
         return response()->json(['message' => 'Movie deleted successfully'], 200);
     }
 
-    public function index()
+    public function movies()
     {
         $movies = Movie::all();
 

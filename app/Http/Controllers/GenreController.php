@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GenreRequest;
+use App\Http\Resources\GenreResource;
 use App\Models\Genre;
 use App\Services\GenreService;
 use Illuminate\Http\Request;
@@ -49,17 +50,17 @@ class GenreController extends Controller
         return response()->json(['message' => 'Жанр успішно видалений'], 200);
     }
 
-    public function index()
+    public function genres()
     {
         $genres = Genre::all();
 
-        return response()->json($genres);
+        return GenreResource::collection($genres);
     }
 
     public function show($id)
     {
         $genre = Genre::findOrFail($id);
 
-        return response()->json($genre);
+        return new GenreResource($genre);
     }
 }

@@ -34,3 +34,4 @@ Route::group(['prefix' => 'genre'], function () {
 
 Route::get('movies', [MovieController::class, 'movies']);
 Route::get('genres', [GenreController::class, 'genres']);
+Route::get('/pagination', [MovieController::class, 'paginationMovieGenre']);

@@ -18,7 +18,7 @@ class MovieFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->title(),
+            'name' => fake()->unique()->word,
             'url' => Storage::url('public/default-image.jpg'),
             'publish_status' => fake()->randomElement(['published', 'underConsideration'])
         ];

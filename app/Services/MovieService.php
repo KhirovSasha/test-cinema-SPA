@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\GenreMovie;
 use App\Models\Movie;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,11 +16,13 @@ class MovieService
      */
     public function create(array $data): Movie
     {
-        $image = $data['image'];
-
-        $imagePath = $image->store('public/');
-
-        $imageUrl = Storage::url($imagePath);
+        if (isset($data['image'])) {
+            $image = $data['image'];
+            $imagePath = $image->store('public/');
+            $imageUrl = Storage::url($imagePath);
+        } else {
+            $imageUrl = Storage::url('public/default-image.jpg');
+        }
 
         $movie = Movie::create([
             'name' => $data['name'],
@@ -27,11 +30,20 @@ class MovieService
             'publish_status' => 'underConsideration',
         ]);
 
+        $genres = $data['genres'];
+
+        foreach ($genres as $genre) {
+            GenreMovie::create([
+                'genre_id' => $genre,
+                'movie_id' => $movie->id,
+            ]);
+        }
+
         return $movie;
     }
 
     /**
-     * Create movie by id.
+     * Delete movie by id.
      *
      * @param  int  $id
      * @return bool
@@ -75,7 +87,7 @@ class MovieService
      * @param  int  $id
      * @return bool
      */
-    public function changeStatus($id): bool 
+    public function changeStatus($id): bool
     {
         $movie = Movie::find($id);
 
@@ -84,7 +96,7 @@ class MovieService
         }
 
         $movie->publish_status = $movie->publish_status === 'published' ? 'underConsideration' : 'published';
-       
+
         $movie->save();
 
         return true;

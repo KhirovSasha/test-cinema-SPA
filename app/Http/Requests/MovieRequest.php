@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Movie;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
@@ -26,7 +25,8 @@ class MovieRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'exclude_unless:photo,null|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'genres' => 'nullable|array|min:1',
         ];
     }
 

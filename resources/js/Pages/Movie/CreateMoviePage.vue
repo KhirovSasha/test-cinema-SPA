@@ -101,8 +101,7 @@ export default {
                     }
                 );
 
-                console.log(response);
-                //this.$router.push("/");
+                this.$router.push("/");
             } catch (error) {
                 console.error(error);
             }

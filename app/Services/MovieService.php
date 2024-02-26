@@ -18,7 +18,7 @@ class MovieService
     {
         if (isset($data['image'])) {
             $image = $data['image'];
-            $imagePath = $image->store('public/');
+            $imagePath = $image->store('public');
             $imageUrl = Storage::url($imagePath);
         } else {
             $imageUrl = Storage::url('public/default-image.jpg');
@@ -58,6 +58,13 @@ class MovieService
 
         $movie->delete();
 
+        $imageUrl = $movie->url;
+        $imageUrl = str_replace('/storage/', '/public/', $imageUrl);
+
+        if ($imageUrl !== '/public/default-image.jpg' && Storage::exists($imageUrl)) {
+            Storage::delete($imageUrl);
+        }
+        
         return true;
     }
 
@@ -100,5 +107,15 @@ class MovieService
         $movie->save();
 
         return true;
+    }
+
+    public function paginationMovies($id) {
+       
+        $movies = Movie::whereHas('genres', function ($query) use ($id) {
+            $query->where('genre_id', $id);
+        })->paginate(2);
+
+        return  $movies;
+
     }
 }

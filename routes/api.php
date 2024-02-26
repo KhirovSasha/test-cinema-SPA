@@ -22,6 +22,7 @@ Route::group(['prefix' => 'movie'], function () {
     Route::get('{id}', [MovieController::class, 'show']);
     // Route::get('/movies', [MovieController::class, 'movies']);
     Route::put('{id}/change-status', [MovieController::class, 'changeMovieStatus']);
+    Route::get('/{id}/paginationMovies', [MovieController::class, 'paginationMovies']);
 });
 
 Route::group(['prefix' => 'genre'], function () {
@@ -33,5 +34,6 @@ Route::group(['prefix' => 'genre'], function () {
 });
 
 Route::get('movies', [MovieController::class, 'movies']);
-Route::get('genres', [GenreController::class, 'genres']);
 Route::get('/pagination', [MovieController::class, 'paginationMovieGenre']);
+
+Route::get('genres', [GenreController::class, 'genres']);

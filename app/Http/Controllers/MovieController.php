@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MovieRequest;
-use App\Http\Resources\PaginationMovieResource;
+use App\Http\Resources\MovieResource;
 use App\Models\Movie;
 use App\Services\MovieService;
+use App\Http\Resources\MoviePaginationResource;
 
 class MovieController extends Controller
 {
@@ -70,15 +71,23 @@ class MovieController extends Controller
 
     public function show($id)
     {
-        $movie = Movie::findOrFail($id);
+        $movie = Movie::with('genres')->findOrFail($id);
 
-        return response()->json($movie);
+        return new MovieResource($movie);
     }
 
     public function paginationMovieGenre()
     {
         $movies = Movie::with('genres')->paginate(5);
 
-        return PaginationMovieResource::collection($movies);
+        return MovieResource::collection($movies);
+    }
+
+    
+    public function paginationMovies($id) 
+    {
+        $result = $this->movieService->paginationMovies($id);
+
+        return  MoviePaginationResource::collection($result);
     }
 }

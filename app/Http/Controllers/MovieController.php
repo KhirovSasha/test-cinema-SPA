@@ -40,9 +40,9 @@ class MovieController extends Controller
         return response()->json(['message' => 'Movie updated successfully'], 200);
     }
 
-    public function delete($id)
+    public function delete(Movie $movie)
     {
-        $result = $this->movieService->delete($id);
+        $result = $this->movieService->delete($movie);
 
         if (!$result) {
             return response()->json(['message' => 'Movie not found'], 404);

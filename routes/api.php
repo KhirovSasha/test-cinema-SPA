@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'movie'], function () {
     Route::post('create', [MovieController::class, 'create']);
     Route::put('{id}/edit', [MovieController::class, 'edit']);
-    Route::delete('{id}/delete', [MovieController::class, 'delete']);
+    Route::delete('{movie}/delete', [MovieController::class, 'delete']);
     Route::get('{id}', [MovieController::class, 'show']);
     // Route::get('/movies', [MovieController::class, 'movies']);
     Route::put('{id}/change-status', [MovieController::class, 'changeMovieStatus']);

@@ -48,15 +48,19 @@ class MovieService
      * @param  int  $id
      * @return bool
      */
-    public function delete($id): bool
+    public function delete(Movie $movie): bool
     {
-        $movie = Movie::find($id);
-
         if (!$movie) {
             return false;
         }
 
-        $movie->delete();
+        $deleted = $movie->delete();
+
+        if (!$deleted) {
+            return false;
+        }
+
+        $movie->genres()->detach();
 
         $imageUrl = $movie->url;
         $imageUrl = str_replace('/storage/', '/public/', $imageUrl);
@@ -109,6 +113,7 @@ class MovieService
         return true;
     }
 
+    
     public function paginationMovies($id) {
        
         $movies = Movie::whereHas('genres', function ($query) use ($id) {
